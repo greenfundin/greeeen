@@ -68,7 +68,7 @@ nav.scrolled {
   font-family: var(--body); font-weight: 600; font-size: .82rem;
   padding: 10px 22px; border-radius: 100px;
   text-decoration: none; transition: background .2s, transform .15s;
-  display: inline-block;
+  display: inline-block; border: none; cursor: pointer;
 }
 .nav-cta:hover { background: #7de88d; transform: translateY(-1px); }
 
@@ -133,7 +133,7 @@ nav.scrolled {
   animation: rise .8s .18s ease both;
 }
 .hero-btns { display: flex; gap: 12px; align-items: center; margin-bottom: 56px; animation: rise .8s .26s ease both; }
-.btn { display: inline-block; font-family: var(--body); font-weight: 600; font-size: .88rem; padding: 13px 28px; border-radius: 100px; text-decoration: none; transition: all .2s; }
+.btn { display: inline-block; font-family: var(--body); font-weight: 600; font-size: .88rem; padding: 13px 28px; border-radius: 100px; text-decoration: none; transition: all .2s; border: none; cursor: pointer; }
 .btn-primary { background: var(--green); color: #0a150a; box-shadow: 0 0 40px rgba(92,201,110,.25); }
 .btn-primary:hover { background: #7de88d; transform: translateY(-2px); box-shadow: 0 0 60px rgba(92,201,110,.45); }
 .btn-secondary { background: transparent; color: var(--text); border: 1px solid rgba(92,201,110,.25); }
@@ -200,7 +200,6 @@ nav.scrolled {
 .belt::before { left: 0; background: linear-gradient(90deg, var(--surface), transparent); }
 .belt::after { right: 0; background: linear-gradient(-90deg, var(--surface), transparent); }
 .belt-track { display: flex; gap: 0; white-space: nowrap; animation: scrollL 30s linear infinite; width: max-content; }
-.belt-track2 { animation-direction: reverse; }
 .bi {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 0 28px; font-size: .78rem; color: var(--muted); font-weight: 500;
@@ -391,6 +390,13 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
 .fc a:hover { color: var(--text); }
 .ft-bot { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border); font-size: .74rem; color: var(--muted); }
 
+/* Phone link styles */
+.nav-phone { font-size: .75rem; font-weight: 500; color: var(--muted); letter-spacing: .04em; display: flex; align-items: center; gap: 6px; text-decoration: none; transition: color .2s; }
+.nav-phone:hover { color: var(--cream); }
+.nav-phone svg { flex-shrink: 0; }
+.fc .phone-link { display: flex; align-items: center; gap: 7px; font-size: .82rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+.fc .phone-link:hover { color: var(--text); }
+
 /* ── CHATBOT ── */
 .chat-widget { position: fixed; bottom: 26px; right: 26px; z-index: 800; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
 .chat-toggle { width: 54px; height: 54px; background: var(--green); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 28px rgba(92,201,110,.38); transition: transform .2s, box-shadow .2s; position: relative; flex-shrink: 0; }
@@ -446,16 +452,53 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
 .chat-send { width: 34px; height: 34px; background: var(--green); border: none; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .2s; }
 .chat-send:hover { background: #7de88d; }
 
-/* ── REVEAL ── */
+/* ── BOOKING POPUP ── */
+.book-popup-overlay { position: fixed; inset: 0; z-index: 1500; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.book-popup-overlay.open { opacity: 1; pointer-events: all; }
+.book-popup-bg { position: absolute; inset: 0; background: rgba(7,12,7,.75); backdrop-filter: blur(14px); }
+.book-popup { position: relative; z-index: 1; background: var(--surface); border: 1px solid var(--border2); border-radius: 22px; padding: 36px 32px; width: 100%; max-width: 420px; box-shadow: 0 32px 80px rgba(0,0,0,.6); transform: scale(.94) translateY(16px); transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.book-popup-overlay.open .book-popup { transform: none; }
+.book-popup-close { position: absolute; top: 14px; right: 14px; width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 8px; background: transparent; cursor: pointer; color: var(--muted); display: flex; align-items: center; justify-content: center; transition: all .2s; }
+.book-popup-close:hover { border-color: var(--border2); color: var(--text); }
+.book-popup h3 { font-family: var(--head); font-size: 1.5rem; font-weight: 900; color: var(--cream); letter-spacing: -.03em; margin-bottom: 6px; }
+.book-popup p { font-size: .84rem; color: var(--muted); line-height: 1.65; margin-bottom: 26px; }
+.book-option { display: flex; align-items: center; gap: 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; text-decoration: none; cursor: pointer; transition: border-color .2s, transform .15s, background .2s; margin-bottom: 10px; width: 100%; }
+.book-option:last-of-type { margin-bottom: 0; }
+.book-option:hover { border-color: var(--border2); transform: translateY(-2px); background: rgba(20,30,19,.8); }
+.book-option-ico { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.book-option-title { font-size: .92rem; font-weight: 600; color: var(--cream); margin-bottom: 3px; }
+.book-option-sub { font-size: .75rem; color: var(--muted); }
+.book-divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; font-size: .72rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.book-divider::before, .book-divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
 .reveal.on { opacity: 1; transform: none; }
 
+/* ── HAMBURGER ── */
+.hamburger { display: none; width: 40px; height: 40px; background: transparent; border: 1px solid var(--border); border-radius: 9px; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; flex-shrink: 0; }
+.hamburger span { display: block; width: 18px; height: 1.5px; background: var(--cream); border-radius: 2px; transition: all .25s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile nav drawer */
+.mobile-nav { display: none; position: fixed; inset: 0; background: rgba(11,19,10,.97); backdrop-filter: blur(20px); z-index: 490; flex-direction: column; align-items: center; justify-content: center; gap: 32px; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.mobile-nav.open { opacity: 1; pointer-events: all; }
+.mobile-nav a { font-family: var(--head); font-size: 2rem; font-weight: 700; color: var(--cream); text-decoration: none; letter-spacing: -.03em; transition: color .2s; }
+.mobile-nav a:hover { color: var(--green); }
+.mobile-nav .mnav-cta { background: var(--green); color: #0a150a !important; font-family: var(--body); font-weight: 600; font-size: 1rem; padding: 14px 36px; border-radius: 100px; margin-top: 8px; border: none; cursor: pointer; }
+.mobile-nav .mnav-phone { font-family: var(--body) !important; font-size: 1rem !important; font-weight: 500; color: var(--muted) !important; display: flex; align-items: center; gap: 8px; }
+.mobile-nav .mnav-phone:hover { color: var(--green) !important; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
-  nav, nav.scrolled { padding: 16px 32px; }
+  nav, nav.scrolled { padding: 16px 28px; }
   .nav-links { display: none; }
-  section, #stats { padding: 72px 32px; }
-  .hero { padding: 120px 32px 72px; grid-template-columns: 1fr; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .mobile-nav { display: flex; }
+  section, #stats { padding: 72px 28px; }
+  .hero { padding: 110px 28px 64px; grid-template-columns: 1fr; }
   .hero-right { display: none; }
   .svc-grid { grid-template-columns: 1fr 1fr; }
   .svc-card.wide { grid-column: span 2; }
@@ -463,26 +506,70 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
   .chart-card.wide { grid-column: span 1; }
   .rv-grid { grid-template-columns: 1fr 1fr; }
   .ft-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .plat-grid { grid-template-columns: repeat(3, 1fr); }
-  .proc-grid { grid-template-columns: 1fr; gap: 40px; }
-  #stats { padding: 40px 32px; }
-  .sband { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .plat-grid { grid-template-columns: repeat(4, 1fr); }
+  .proc-grid { grid-template-columns: 1fr; gap: 36px; }
+  #stats { padding: 40px 28px; }
+  .sband { grid-template-columns: 1fr 1fr; }
   .scell:not(:last-child) { border-right: none; }
   .sband .scell { border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+  .chat-panel { width: 320px; }
 }
+
 @media (max-width: 640px) {
-  section, #stats, footer { padding: 56px 20px; }
-  .hero { padding: 100px 20px 60px; }
-  nav, nav.scrolled { padding: 14px 20px; }
-  .hero h1 { font-size: 2.6rem; }
-  .hero-stats { gap: 20px; flex-wrap: wrap; }
-  .hero-btns { flex-direction: column; align-items: flex-start; }
-  .svc-grid { grid-template-columns: 1fr; }
+  section, #stats, footer { padding: 52px 18px; }
+  .hero { padding: 90px 18px 52px; }
+  nav, nav.scrolled { padding: 13px 18px; }
+
+  .hero h1 { font-size: clamp(2.2rem, 9vw, 2.8rem); }
+  .hero-sub { font-size: .92rem; }
+  .stitle { font-size: clamp(1.6rem, 6.5vw, 2rem); }
+
+  .hero-stats { gap: 16px; }
+  .hstat-n { font-size: 1.7rem; }
+  .hstat-div { display: none; }
+  .hero-btns { flex-direction: column; align-items: stretch; gap: 10px; }
+  .btn { text-align: center; }
+
+  .svc-grid { grid-template-columns: 1fr; gap: 10px; }
   .svc-card.wide { grid-column: span 1; }
-  .rv-grid { grid-template-columns: 1fr; }
-  .ft-grid { grid-template-columns: 1fr; }
-  .plat-grid { grid-template-columns: repeat(2, 1fr); }
-  .cta-box { padding: 42px 24px; }
+  .svc-card { padding: 22px 20px; }
+
+  .sband { grid-template-columns: 1fr 1fr; gap: 0; }
+  .sbig { font-size: 2.2rem; }
+  .scell { padding: 14px 10px; border-bottom: 1px solid var(--border); }
+  .scell:nth-child(odd) { border-right: 1px solid var(--border); }
+
+  .proc-grid { grid-template-columns: 1fr; gap: 32px; }
+  .phone-wrap { display: none; }
+
+  .growth-grid { gap: 10px; }
+  .chart-card { padding: 20px; }
+  .cc-num { font-size: 1.6rem; }
+
+  .plat-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 100%; }
+  .plat-card { padding: 14px 8px; }
+  .plat-ico { width: 30px; height: 30px; }
+  .plat-name { font-size: .6rem; }
+
+  .rv-grid { grid-template-columns: 1fr; gap: 10px; }
+  .rv-head { flex-direction: column; align-items: flex-start; }
+
+  .cta-box { padding: 36px 20px; border-radius: 18px; }
+  .cta-box h2 { font-size: 1.6rem; }
+
+  .ft-grid { grid-template-columns: 1fr; gap: 28px; }
+  .fb p { max-width: 100%; }
+  .ft-bot { flex-direction: column; gap: 8px; text-align: center; }
+
+  .chat-widget { bottom: 16px; right: 16px; }
+  .chat-panel { width: calc(100vw - 32px); max-height: 72vh; border-radius: 18px; }
+
+  /* Book popup mobile */
+  .book-popup { padding: 28px 20px; border-radius: 18px; }
+  .book-popup h3 { font-size: 1.3rem; }
+  .book-option { padding: 14px 16px; gap: 12px; }
+  .book-option-ico { width: 38px; height: 38px; }
+
   body { cursor: auto; }
   #cur, #cur-ring { display: none; }
 }
@@ -490,9 +577,52 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
 </head>
 <body>
 
-<!-- CURSOR -->
+<!-- BOOKING POPUP -->
+<div class="book-popup-overlay" id="bookPopup">
+  <div class="book-popup-bg" onclick="closeBooking()"></div>
+  <div class="book-popup">
+    <button class="book-popup-close" onclick="closeBooking()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <h3>Let's connect</h3>
+    <p>Choose how you'd like to reach us. We're ready to help your business grow.</p>
+    <a class="book-option" href="tel:+15757354725">
+      <div class="book-option-ico" style="background:rgba(92,201,110,.12)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5cc96e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.68h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div>
+        <div class="book-option-title">Call us directly</div>
+        <div class="book-option-sub">+1 (575) 735-4725 &bull; Available Mon–Sat</div>
+      </div>
+    </a>
+    <div class="book-divider">or</div>
+    <a class="book-option" href="https://docs.google.com/forms/d/e/1FAIpQLSfM5MqDu4dj8lvUbctRRQ7QhVeEzX6VYUZPzLoD47wYLeXrCA/viewform?usp=publish-editor" target="_blank" rel="noopener">
+      <div class="book-option-ico" style="background:rgba(90,157,232,.12)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5a9de8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <div class="book-option-title">Schedule a free call</div>
+        <div class="book-option-sub">Pick a time that works for you &bull; 30 min</div>
+      </div>
+    </a>
+  </div>
+</div>
+
 <div id="cur"></div>
 <div id="cur-ring"></div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#process" onclick="closeMobileNav()">Process</a>
+  <a href="#growth" onclick="closeMobileNav()">Growth</a>
+  <a href="#reviews" onclick="closeMobileNav()">Reviews</a>
+  <a href="tel:+15757354725" class="mnav-phone" onclick="closeMobileNav()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.68h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    (575) 735-4725
+  </a>
+  <button onclick="closeMobileNav();openBooking();" class="mnav-cta">Book a Free Call</button>
+</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -502,8 +632,17 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
     <li><a href="#process">Process</a></li>
     <li><a href="#growth">Growth</a></li>
     <li><a href="#reviews">Reviews</a></li>
+    <li>
+      <a href="tel:+15757354725" class="nav-phone">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.68h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (575) 735-4725
+      </a>
+    </li>
   </ul>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfM5MqDu4dj8lvUbctRRQ7QhVeEzX6VYUZPzLoD47wYLeXrCA/viewform?usp=publish-editor" target="_blank" rel="noopener" class="nav-cta">Book a Call</a>
+  <button onclick="openBooking()" class="nav-cta">Book a Call</button>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -516,15 +655,24 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
     <h1>Your business,<br>running on<br><em>full power.</em></h1>
     <p class="hero-sub">AI voice agents, automated follow-ups, custom websites, and clear reporting all in one place. We handle the operations, you focus on growth.</p>
     <div class="hero-btns">
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfM5MqDu4dj8lvUbctRRQ7QhVeEzX6VYUZPzLoD47wYLeXrCA/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary">Book a Free Call</a>
+      <button onclick="openBooking()" class="btn btn-primary">Book a Free Call</button>
       <a href="#services" class="btn btn-secondary">See What We Do</a>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-n"><span class="cnt" data-t="500">0</span><span class="g">+</span></div><div class="hstat-l">Businesses Served</div></div>
+      <div class="hstat">
+        <div class="hstat-n"><span id="hs-biz">20</span><span class="g">+</span></div>
+        <div class="hstat-l">Businesses Launched</div>
+      </div>
       <div class="hstat-div"></div>
-      <div class="hstat"><div class="hstat-n"><span class="cnt" data-t="98">0</span><span class="g">%</span></div><div class="hstat-l">Client Retention</div></div>
+      <div class="hstat">
+        <div class="hstat-n"><span id="hs-ret">100</span><span class="g">%</span></div>
+        <div class="hstat-l">Client Satisfaction</div>
+      </div>
       <div class="hstat-div"></div>
-      <div class="hstat"><div class="hstat-n"><span class="cnt" data-t="3">0</span><span class="g">x</span></div><div class="hstat-l">Avg Revenue Growth</div></div>
+      <div class="hstat">
+        <div class="hstat-n"><span id="hs-roi">72</span><span class="g">h</span></div>
+        <div class="hstat-l">Avg Time to Live</div>
+      </div>
     </div>
   </div>
 
@@ -539,13 +687,13 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
 
     <div class="hero-dash">
       <div class="hdash-title">Revenue This Month</div>
-      <div class="hdash-val">$24,800</div>
-      <div class="hdash-badge">&#8593; 84% vs last year</div>
+      <div class="hdash-val" id="liveRev">$8,240</div>
+      <div class="hdash-badge">&#8593; <span id="liveGrowth">37</span>% vs last month</div>
       <canvas id="hero-mini-chart" height="70"></canvas>
       <div class="hdash-row">
-        <div class="hdash-stat"><div class="hdash-sn">127</div><div class="hdash-sl">New Leads</div></div>
-        <div class="hdash-stat"><div class="hdash-sn">94%</div><div class="hdash-sl">Response</div></div>
-        <div class="hdash-stat"><div class="hdash-sn">3.2x</div><div class="hdash-sl">ROI</div></div>
+        <div class="hdash-stat"><div class="hdash-sn" id="liveLeads">18</div><div class="hdash-sl">New Leads</div></div>
+        <div class="hdash-stat"><div class="hdash-sn" id="liveResp">100%</div><div class="hdash-sl">Response</div></div>
+        <div class="hdash-stat"><div class="hdash-sn" id="liveROI">2.4x</div><div class="hdash-sl">ROI</div></div>
       </div>
     </div>
 
@@ -570,7 +718,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
     <div class="bi"><div class="bico" style="background:rgba(225,48,108,.1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><span>Social Media</span></div>
     <div class="bi"><div class="bico" style="background:rgba(92,201,110,.1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5cc96e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span>Lead Generation</span></div>
     <div class="bi"><div class="bico" style="background:rgba(232,184,90,.1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#e8b85a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span>Analytics</span></div>
-    <!-- duplicate for seamless loop -->
+    <!-- duplicate -->
     <div class="bi"><div class="bico" style="background:rgba(92,201,110,.1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5cc96e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.68h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><span>AI Voice Agents</span></div>
     <div class="bi"><div class="bico" style="background:rgba(90,157,232,.1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a9de8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span>Customer Follow-Ups</span></div>
     <div class="bi"><div class="bico" style="background:rgba(232,184,90,.1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#e8b85a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><span>Website Design</span></div>
@@ -626,7 +774,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
       <p>Content creation, scheduling, and growth strategy across Instagram, TikTok, Facebook, and more to build your brand.</p>
       <div class="svc-arr"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
     </div>
-    <div class="svc-card wide" onmousemove="cardGlow(event,this)" style="grid-column: span 3">
+    <div class="svc-card" onmousemove="cardGlow(event,this)" style="grid-column: span 3">
       <div class="svc-ico" style="background:rgba(92,201,110,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5cc96e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       <h3>Lead Generation</h3>
       <p>Targeted outreach that fills your pipeline with qualified prospects already looking for what you offer. We put your business in front of the right people at the right time, consistently.</p>
@@ -638,10 +786,10 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
 <!-- STATS -->
 <div id="stats">
   <div class="sband reveal">
-    <div class="scell"><div class="sbig"><span class="cnt" data-t="40">0</span><span class="g">%</span></div><div class="sdesc">Fewer missed follow-ups on average</div></div>
-    <div class="scell"><div class="sbig"><span class="cnt" data-t="10">0</span><span class="g">x</span></div><div class="sdesc">Faster customer response with AI voice</div></div>
-    <div class="scell"><div class="sbig"><span class="cnt" data-t="72">0</span><span class="g">h</span></div><div class="sdesc">Average time from kickoff to live</div></div>
-    <div class="scell"><div class="sbig">$<span class="cnt" data-t="2">0</span><span class="g">M+</span></div><div class="sdesc">Revenue generated for clients last year</div></div>
+    <div class="scell"><div class="sbig"><span class="cnt" data-t="3">0</span><span class="g">x</span></div><div class="sdesc">Faster lead response vs. answering manually</div></div>
+    <div class="scell"><div class="sbig"><span class="cnt" data-t="72">0</span><span class="g">h</span></div><div class="sdesc">Average time from kickoff to fully live</div></div>
+    <div class="scell"><div class="sbig"><span class="cnt" data-t="100">0</span><span class="g">%</span></div><div class="sdesc">Client satisfaction across every project</div></div>
+    <div class="scell"><div class="sbig">$<span class="g">0</span></div><div class="sdesc">Setup fee — no upfront cost, ever</div></div>
   </div>
 </div>
 
@@ -688,15 +836,13 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
     <p class="ssub">Real growth metrics from businesses just like yours after working with Green Solutions.</p>
   </div>
   <div class="growth-grid reveal" id="growthGrid" style="transition-delay:.1s">
-
-    <!-- Wide Line Chart -->
     <div class="chart-card wide">
       <div class="cc-head">
         <div>
           <div class="cc-title">Monthly Revenue Growth</div>
-          <div class="cc-num"><span class="cnt" data-t="127">0</span><span class="g">K</span></div>
+          <div class="cc-num"><span class="cnt" data-t="18">0</span><span class="g">K</span></div>
         </div>
-        <div class="cc-badge">+84% vs last year</div>
+        <div class="cc-badge">+37% vs last month</div>
       </div>
       <canvas id="chartLine" class="chart-canvas" height="140"></canvas>
       <div class="cc-legend">
@@ -704,27 +850,23 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
         <div class="cc-leg-item"><div class="cc-leg-dot" style="background:rgba(92,201,110,.3)"></div>Last Year</div>
       </div>
     </div>
-
-    <!-- Bar Chart -->
     <div class="chart-card">
       <div class="cc-head">
         <div>
           <div class="cc-title">Leads Per Month</div>
-          <div class="cc-num"><span class="cnt" data-t="89">0</span><span class="g"> avg</span></div>
+          <div class="cc-num"><span class="cnt" data-t="24">0</span><span class="g"> avg</span></div>
         </div>
-        <div class="cc-badge">+210% growth</div>
+        <div class="cc-badge">+3x in 60 days</div>
       </div>
       <canvas id="chartBar" class="chart-canvas" height="130"></canvas>
     </div>
-
-    <!-- Donut Chart -->
     <div class="chart-card">
       <div class="cc-head">
         <div>
           <div class="cc-title">Lead Channels</div>
-          <div class="cc-num"><span class="cnt" data-t="340">0</span><span class="g"> leads/mo</span></div>
+          <div class="cc-num"><span class="cnt" data-t="47">0</span><span class="g"> leads/mo</span></div>
         </div>
-        <div class="cc-badge">+3x increase</div>
+        <div class="cc-badge">+2x increase</div>
       </div>
       <div class="donut-row">
         <canvas id="chartDonut" width="110" height="110" style="flex-shrink:0"></canvas>
@@ -736,30 +878,27 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
         </div>
       </div>
     </div>
-
-    <!-- Sparklines -->
     <div class="chart-card">
       <div class="cc-head"><div><div class="cc-title">Key Metrics</div></div><div class="cc-badge">All time high</div></div>
       <div class="spark-list">
         <div class="spark-item">
-          <div class="spark-top"><span class="spark-label">Answer Rate</span><span class="spark-val"><span class="cnt" data-t="94">0</span>%</span></div>
-          <div class="spark-bar"><div class="spark-fill" data-w="94" style="background:#5cc96e"></div></div>
+          <div class="spark-top"><span class="spark-label">Answer Rate</span><span class="spark-val"><span class="cnt" data-t="100">0</span>%</span></div>
+          <div class="spark-bar"><div class="spark-fill" data-w="100" style="background:#5cc96e"></div></div>
         </div>
         <div class="spark-item">
-          <div class="spark-top"><span class="spark-label">Conversion Rate</span><span class="spark-val"><span class="cnt" data-t="67">0</span>%</span></div>
-          <div class="spark-bar"><div class="spark-fill" data-w="67" style="background:#5a9de8"></div></div>
+          <div class="spark-top"><span class="spark-label">Conversion Rate</span><span class="spark-val"><span class="cnt" data-t="42">0</span>%</span></div>
+          <div class="spark-bar"><div class="spark-fill" data-w="42" style="background:#5a9de8"></div></div>
         </div>
         <div class="spark-item">
-          <div class="spark-top"><span class="spark-label">Avg Response Time</span><span class="spark-val"><span class="cnt" data-t="8">0</span>s</span></div>
-          <div class="spark-bar"><div class="spark-fill" data-w="92" style="background:#e8b85a"></div></div>
+          <div class="spark-top"><span class="spark-label">Avg Response Time</span><span class="spark-val"><span class="cnt" data-t="12">0</span>s</span></div>
+          <div class="spark-bar"><div class="spark-fill" data-w="88" style="background:#e8b85a"></div></div>
         </div>
         <div class="spark-item">
-          <div class="spark-top"><span class="spark-label">Client Retention</span><span class="spark-val"><span class="cnt" data-t="98">0</span>%</span></div>
-          <div class="spark-bar"><div class="spark-fill" data-w="98" style="background:#a07be8"></div></div>
+          <div class="spark-top"><span class="spark-label">Client Satisfaction</span><span class="spark-val"><span class="cnt" data-t="100">0</span>%</span></div>
+          <div class="spark-bar"><div class="spark-fill" data-w="100" style="background:#a07be8"></div></div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -799,8 +938,8 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
         <div class="gstars" style="margin-top:5px">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
       </div>
       <div>
-        <div class="gscore">4.9</div>
-        <div class="gcnt">Based on 127 reviews</div>
+        <div class="gscore">5.0</div>
+        <div class="gcnt">Based on 11 reviews</div>
       </div>
     </div>
   </div>
@@ -829,7 +968,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
     <div class="slbl" style="display:inline-block;margin-bottom:14px">Let's Talk</div>
     <h2>Ready to put your business on autopilot?</h2>
     <p>Book your free 30-minute strategy call. We'll map out exactly how Green Solutions can help you grow, no obligation, no pressure.</p>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfM5MqDu4dj8lvUbctRRQ7QhVeEzX6VYUZPzLoD47wYLeXrCA/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:.95rem;padding:14px 36px">Book a Free Call</a>
+    <button onclick="openBooking()" class="btn btn-primary" style="font-size:.95rem;padding:14px 36px">Book a Free Call</button>
   </div>
 </section>
 
@@ -861,6 +1000,12 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 6
     </ul></div>
     <div class="fc"><h5>Contact</h5><ul>
       <li><a href="mailto:greenmedialabs@gmail.com">greenmedialabs@gmail.com</a></li>
+      <li>
+        <a href="tel:+15757354725" class="phone-link">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.68h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (575) 735-4725
+        </a>
+      </li>
       <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfM5MqDu4dj8lvUbctRRQ7QhVeEzX6VYUZPzLoD47wYLeXrCA/viewform?usp=publish-editor" target="_blank" rel="noopener">Book a Call</a></li>
     </ul></div>
   </div>
@@ -929,7 +1074,32 @@ document.querySelectorAll('a,button,.svc-card,.rc,.step').forEach(el => {
   el.addEventListener('mouseleave', () => { ring.style.width = '32px'; ring.style.height = '32px'; });
 });
 
-/* ── NAV ── */
+/* ── BOOKING POPUP ── */
+function openBooking() {
+  document.getElementById('bookPopup').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBooking() {
+  document.getElementById('bookPopup').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBooking(); });
+
+/* ── HAMBURGER ── */
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+});
+function closeMobileNav() {
+  hamburger.classList.remove('open');
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── NAV SCROLL ── */
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', scrollY > 60);
 });
@@ -947,23 +1117,49 @@ function setStep(el) {
   el.classList.add('active');
 }
 
-/* ── REVEAL + COUNTERS ── */
+/* ── COUNTER ANIMATION ── */
 const counted = new Set();
 function animCounter(el) {
   if (counted.has(el)) return;
   counted.add(el);
   const target = +el.dataset.t;
-  const dur = 1500;
+  const dur = 1600;
   const start = performance.now();
   (function u(now) {
     const p = Math.min((now - start) / dur, 1);
-    const e = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.floor(e * target);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(ease * target);
     if (p < 1) requestAnimationFrame(u);
     else el.textContent = target;
   })(start);
 }
 
+/* ── HERO STATS: animate to real values on load (no zeroes) ── */
+window.addEventListener('DOMContentLoaded', () => {
+  // Set real values immediately, then animate up
+  const bizEl = document.getElementById('hs-biz');
+  const retEl = document.getElementById('hs-ret');
+  const roiEl = document.getElementById('hs-roi');
+
+  function animHeroStat(el, target, dur, suffix) {
+    const start = performance.now();
+    (function u(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target);
+      if (p < 1) requestAnimationFrame(u);
+      else el.textContent = target;
+    })(start);
+  }
+
+  setTimeout(() => {
+    animHeroStat(bizEl, 20, 1400);
+    animHeroStat(retEl, 100, 1200);
+    animHeroStat(roiEl, 72, 1600);
+  }, 500);
+});
+
+/* ── REVEAL + COUNTERS ── */
 const revIO = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -971,8 +1167,62 @@ const revIO = new IntersectionObserver(entries => {
       e.target.querySelectorAll('.cnt').forEach(animCounter);
     }
   });
-}, { threshold: .12 });
+}, { threshold: .1 });
 document.querySelectorAll('.reveal').forEach(el => revIO.observe(el));
+
+/* ── LIVE DASHBOARD TICKER ── */
+(function () {
+  let rev = 8240;
+  let leads = 18;
+  const notifMessages = [
+    { label: 'New appointment booked', sub: 'AI Voice Agent', color: '#5cc96e', badge: '+1' },
+    { label: 'Lead qualified automatically', sub: 'AI Voice Agent', color: '#5cc96e', badge: '+1' },
+    { label: 'Follow-up sent to 8 leads', sub: 'Automated SMS', color: '#5a9de8', badge: 'Auto' },
+    { label: 'Review request sent', sub: 'Email Campaign', color: '#e8b85a', badge: 'Auto' },
+    { label: 'New website inquiry', sub: 'Contact Form', color: '#a07be8', badge: 'New' },
+    { label: 'Follow-up sent to 15 leads', sub: 'Automated SMS', color: '#5a9de8', badge: 'Auto' },
+    { label: 'Appointment rescheduled', sub: 'AI Voice Agent', color: '#5cc96e', badge: 'Done' },
+  ];
+  let notifIdx = 0;
+
+  function tickRevenue() {
+    const bump = Math.floor(Math.random() * 280) + 60;
+    rev += bump;
+    const el = document.getElementById('liveRev');
+    if (el) el.textContent = '$' + rev.toLocaleString();
+    const leadsEl = document.getElementById('liveLeads');
+    if (leadsEl && Math.random() > 0.55) {
+      leads++;
+      leadsEl.textContent = leads;
+    }
+    setTimeout(tickRevenue, 4000 + Math.random() * 5000);
+  }
+  setTimeout(tickRevenue, 3000);
+
+  function cycleNotif() {
+    const msg = notifMessages[notifIdx % notifMessages.length];
+    notifIdx++;
+    const cards = document.querySelectorAll('.hero-notif');
+    const card = cards[notifIdx % cards.length];
+    if (!card) return;
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(8px)';
+    setTimeout(() => {
+      const ico = card.querySelector('.hnotif-ico');
+      const label = card.querySelector('.hnotif-label');
+      const sub = card.querySelector('.hnotif-sub');
+      const badge = card.querySelector('.hnotif-badge');
+      if (label) label.textContent = msg.label;
+      if (sub) sub.textContent = msg.sub + ' \u2022 just now';
+      if (badge) { badge.textContent = msg.badge; badge.style.color = msg.color; }
+      card.style.transition = 'opacity .4s, transform .4s';
+      card.style.opacity = '1';
+      card.style.transform = 'none';
+    }, 300);
+    setTimeout(cycleNotif, 5000 + Math.random() * 4000);
+  }
+  setTimeout(cycleNotif, 5000);
+})();
 
 /* ── HERO CANVAS PARTICLES ── */
 (function () {
@@ -1066,22 +1316,21 @@ document.querySelectorAll('.reveal').forEach(el => revIO.observe(el));
   requestAnimationFrame(draw);
 })();
 
-/* ── GROWTH CHARTS (canvas) ── */
+/* ── GROWTH CHARTS ── */
 function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
 
 function drawCharts() {
   const dpr = window.devicePixelRatio || 1;
 
-  /* LINE CHART */
   (function () {
     const c = document.getElementById('chartLine');
     if (!c) return;
     const W = c.offsetWidth, H = 140;
     c.width = W * dpr; c.height = H * dpr;
     const ctx = c.getContext('2d'); ctx.scale(dpr, dpr);
-    const thisYr = [22, 28, 35, 32, 42, 48, 55, 62, 71, 84, 105, 127];
-    const lastYr = [18, 20, 22, 21, 24, 26, 28, 30, 35, 40, 55, 69];
-    const maxV = 135;
+    const thisYr = [3, 4, 5, 4, 6, 7, 9, 10, 12, 14, 16, 18];
+    const lastYr = [0, 0, 0, 0, 0, 0, 2, 3, 4, 5, 7, 8];
+    const maxV = 22;
     const pad = { t: 8, b: 24, l: 8, r: 8 };
     const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
     const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
@@ -1139,14 +1388,13 @@ function drawCharts() {
     requestAnimationFrame(frame);
   })();
 
-  /* BAR CHART */
   (function () {
     const c = document.getElementById('chartBar');
     if (!c) return;
     const W = c.offsetWidth, H = 130;
     c.width = W * dpr; c.height = H * dpr;
     const ctx = c.getContext('2d'); ctx.scale(dpr, dpr);
-    const data = [12, 18, 22, 28, 35, 42, 52, 61, 70, 79, 89, 100];
+    const data = [0, 0, 3, 5, 7, 8, 10, 12, 16, 19, 22, 28];
     const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
     const pad = { t: 8, b: 20, l: 4, r: 4 };
     const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
@@ -1185,7 +1433,6 @@ function drawCharts() {
     requestAnimationFrame(frame);
   })();
 
-  /* DONUT CHART */
   (function () {
     const c = document.getElementById('chartDonut');
     if (!c) return;
@@ -1250,15 +1497,15 @@ const KB = [
   { k: ['voice','call','phone','agent','ai call','answer'], r: ['Our AI voice agents answer calls 24/7, qualify leads with real conversation, and book appointments directly into your calendar. They sound natural and handle objections like a real rep.', 'The AI voice agent picks up every call, qualifies the lead, answers FAQs, and books appointments automatically. No staff needed, no missed calls.'] },
   { k: ['text','sms','follow','message','email','sequence'], r: ['We set up automated SMS and email sequences that go out at exactly the right time. Appointment reminders, review requests, re-engagement campaigns, all personalized to each customer.', 'Our follow-up system sends personalized texts and emails automatically. Clients typically see a 40% drop in missed follow-ups within the first week.'] },
   { k: ['website','web','site','design','build','page'], r: ['We build fully custom websites from scratch, optimized for speed, SEO, and conversions. Most websites are delivered within 72 hours of kickoff.', 'Every website we build is designed around your brand and built to convert visitors into customers. Fast, mobile-first, SEO-ready, delivered in about 72 hours.'] },
-  { k: ['social','instagram','tiktok','facebook','media','content','post'], r: ['Yes, we handle social media marketing separately. Content creation, scheduling, hashtag strategy, and growth campaigns across Instagram, TikTok, and Facebook.', 'Our social media service covers full content creation and management. We post consistently, grow your audience, and drive traffic back to your business.'] },
+  { k: ['social','instagram','tiktok','facebook','media','content','post'], r: ['Yes, we handle social media marketing. Content creation, scheduling, hashtag strategy, and growth campaigns across Instagram, TikTok, and Facebook.', 'Our social media service covers full content creation and management. We post consistently, grow your audience, and drive traffic back to your business.'] },
   { k: ['report','analytic','data','dashboard','metric','track','insight'], r: ['You get clean weekly and monthly reports showing exactly what is working: leads, conversions, revenue trends, and ROI. No guessing, just clear numbers.', 'We provide dashboards and regular reports so you always know where your money is going and what is generating results.'] },
   { k: ['crm','integrate','hubspot','salesforce','gohighlevel','zapier','connect'], r: ['We integrate with GoHighLevel, HubSpot, Salesforce, Zapier, Mailchimp, and most major CRMs. We plug into what you already use.', 'Our team connects all your existing tools into one seamless workflow. GoHighLevel, HubSpot, Salesforce, Zapier, you name it.'] },
   { k: ['lead','prospect','pipeline','generate','outreach'], r: ['Our lead generation service runs targeted outreach campaigns that fill your pipeline with qualified prospects who are already looking for what you offer.', 'We build and run outbound lead gen campaigns. Targeted, efficient, designed to bring in people who are ready to buy.'] },
   { k: ['fast','quick','launch','long','time','ready','start','when','72'], r: ['We have a 72-hour launch guarantee. From kickoff call to live system, most clients are up and running within 3 days.', 'Typically 72 hours from kickoff to go-live. We work fast and do not hold things up on our end.'] },
   { k: ['price','cost','how much','pricing','plan','package','pay'], r: ['Pricing depends on the services you need and the size of your business. Best way to get an accurate number is to book a free strategy call and we will put together a custom quote.', 'We do custom pricing based on your needs. No one-size-fits-all packages. Book a free call and we will map out what makes sense for your business.'] },
   { k: ['contract','lock','commit','cancel','term','month'], r: ['No long-term contracts. We work month to month because we want you to stay because the results are good, not because you are locked in.', 'Month to month, no commitments. We earn your business every month.'] },
-  { k: ['contact','email','reach','touch','talk','support'], r: ['You can email us at greenmedialabs@gmail.com or hit the Book a Call button at the top of the page to schedule a free strategy call.', 'Best way to reach us is greenmedialabs@gmail.com or just book a free call using the button in the nav.'] },
-  { k: ['book','call','schedule','demo','consult','free','meeting'], r: ['Hit the Book a Call button at the top of the page. Free 30-minute call, we go over your goals and what we can do for you.', 'You can book a free 30-minute strategy call using the Book a Call button in the top nav. We will map out a plan for your business, no pressure.'] },
+  { k: ['contact','email','reach','touch','talk','support'], r: ['You can email us at greenmedialabs@gmail.com, call (575) 735-4725, or hit the Book a Call button to schedule a free strategy call.', 'Best way to reach us: greenmedialabs@gmail.com or call (575) 735-4725. Or just book a free call using the button in the nav.'] },
+  { k: ['book','call','schedule','demo','consult','free','meeting'], r: ['Hit the Book a Call button at the top of the page. Free 30-minute call, we go over your goals and what we can do for you.', 'You can book a free 30-minute strategy call using the Book a Call button in the nav. We will map out a plan for your business, no pressure.'] },
   { k: ['hi','hello','hey','sup','howdy','yo'], r: ['Hey! Great to have you here. What can I help you with today? Services, how we work, or getting started, I am here for it.', 'Hello! Welcome to Green Solutions. What can I help you with?'] },
   { k: ['thanks','thank','appreciate','great','awesome','perfect','nice'], r: ['Anytime! If you have more questions or want to get started, just ask or hit that Book a Call button at the top.', 'Of course! Anything else I can help with?'] }
 ];
@@ -1352,10 +1599,8 @@ document.querySelectorAll('.chat-sug').forEach(btn => {
 chatClr.addEventListener('click', () => {
   chatMsgs.innerHTML = '';
   chatSugs.style.display = 'flex';
-  setTimeout(() => addMsg('bot', "Hi! I'm the Green Solutions assistant. What can I help you with today?"), 200);
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && chatOpen) toggleChat();
+  chatBusy = false;
+  setTimeout(() => addMsg('bot', "Chat cleared! How can I help you?"), 200);
 });
 </script>
 </body>
